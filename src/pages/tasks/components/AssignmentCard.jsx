@@ -65,13 +65,13 @@ export default function AssignmentCard({ assignment, onUpdate, modalId }) {
         <div className="col-3">
           <span className="fw-bold ">Assigned : </span>{" "}
           <span className="badge badge-primary">
-            {moment(assignment.assignemntDate).format("d MMM Y")}
+            {moment(assignment.assignemntDate).format("D MMM Y")}
           </span>
         </div>
         <div className="col-3 ">
           <span className="fw-bold ">Due date : </span>{" "}
           <span className="badge badge-primary">
-            {moment(assignment.dueDate).format("d MMM Y")}
+            {moment(assignment.dueDate).format("D MMM Y")}
           </span>
         </div>
         <div className="col-3 ">
@@ -85,7 +85,7 @@ export default function AssignmentCard({ assignment, onUpdate, modalId }) {
             <div>
               <span className="fw-bold">End date : </span>
               <span className={`badge badge-primary`}>
-                {moment(assignment.finishedDate).format("d MMM Y")}
+                {moment(assignment.finishedDate).format("D MMM Y")}
               </span>
             </div>
           )}

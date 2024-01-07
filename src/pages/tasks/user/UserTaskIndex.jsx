@@ -37,7 +37,7 @@ export default function UserTaskIndex(props) {
       .get(`${URL}/assignment/user/${user.id}`, Headers)
       .then((res) => setAssignments(res.data))
       .catch((err) => console.log(err));
-  }, [updateView]);
+  }, [updateView, props.sync]);
 
   const handleStatusUpdate = async (id_assignment, id_status) => {
     console.log(id_assignment + " test");
@@ -99,14 +99,14 @@ export default function UserTaskIndex(props) {
                       </td>
                       <td>
                         <span className="badge badge-secondary">
-                          {moment(a.assignemntDate).format("d MMMM Y")}
+                          {moment(a.assignemntDate).format("D MMMM Y")}
                           {/* {a.assignemntDate} */}
                         </span>
                       </td>
                       <td>
                         <span className="badge badge-secondary">
                           {/* {a.dueDate} */}
-                          {moment(a.dueDate).format("d MMMM Y")}
+                          {moment(a.dueDate).format("D MMMM Y")}
                         </span>
                       </td>
                       <td>

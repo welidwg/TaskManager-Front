@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 export default function ModalAssign(props) {
   //consts
   const currentDate = new Date().toISOString().split("T")[0];
+
   const [users, setUsers] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [assignment, setAssignment] = useState({
@@ -101,27 +102,23 @@ export default function ModalAssign(props) {
         <div className="mb-3">
           <div className="d-flex flex-column justify-content-between mb-3">
             <div className="mb-3">
-              <label className="form-label fw-bold">Choose users : </label>
+              <label className="form-label fw-bold">Choose a user : </label>
 
               <select
                 className="form-select form-select-lg"
                 name="users"
                 onChange={(e) => handleChange(e)}
               >
-                <option value={""}>Select one</option>
+                <option value={""}>Users list</option>
                 {users.length != null &&
                   users.map((user, index) => {
-                    let check = false;
-                    if (
-                      props.task.assignments.some((t) => t.user.id === user.id)
-                    )
-                      check = true;
-
-                    return (
-                      <option key={index} value={user.id}>
-                        {user.username}
-                      </option>
-                    );
+                    if (!user.roles.some((t) => t.role === "ADMIN")) {
+                      return (
+                        <option key={index} value={user.id}>
+                          {user.username}
+                        </option>
+                      );
+                    }
                   })}
               </select>
             </div>

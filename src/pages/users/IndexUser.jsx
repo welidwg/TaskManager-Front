@@ -168,75 +168,67 @@ export default function IndexUser(props) {
             </thead>
             <tbody>
               {users.length == 0 ? (
-                <>
-                  <tr>
-                    <td>
-                      <span className="text-dark">Loading</span>
-                    </td>
-                  </tr>
-                </>
+                <tr>
+                  <td>
+                    <span className="text-dark">Loading</span>
+                  </td>
+                </tr>
               ) : users.length != 0 ? (
                 users.map((u, index) => {
                   return (
-                    <>
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>
-                          <div className="d-flex align-items-center justify-content-start">
-                            <img
-                              className="rounded-circle shadow me-2"
-                              width="30"
-                              height="30"
-                              alt={u.username}
-                              src={
-                                u.avatar == null
-                                  ? "assets/img/user.jpg"
-                                  : `${URL}/photos/${u.avatar}`
-                              }
-                            />
-                            <span className="badge badge-primary">
-                              {u.username}
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <div className="d-flex align-items-center justify-content-start">
+                          <img
+                            className="rounded-circle shadow me-2"
+                            width="30"
+                            height="30"
+                            alt={u.username}
+                            src={
+                              u.avatar == null
+                                ? "assets/img/user.jpg"
+                                : `${URL}/photos/${u.avatar}`
+                            }
+                          />
+                          <span className="badge badge-primary">
+                            {u.username}
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="badge badge-warning">{u.email}</span>
+                      </td>
+                      <td>
+                        {u.roles.map((role, i) => {
+                          return (
+                            <span key={i} className="badge badge-success mx-2">
+                              {role.role}
                             </span>
-                          </div>
-                        </td>
-                        <td>
-                          <span className="badge badge-warning">{u.email}</span>
-                        </td>
-                        <td>
-                          {u.roles.map((role, i) => {
-                            return (
-                              <span
-                                key={i}
-                                className="badge badge-success mx-2"
-                              >
-                                {role.role}
-                              </span>
-                            );
-                          })}
-                        </td>
-                        <td>
-                          <div>
-                            <a
-                              data-bs-toggle="modal"
-                              data-bs-target={"#modal-edit-" + u.id}
-                              className="mx-2 btn shadow-sm"
-                            >
-                              <i className="fas fa-edit"></i>
-                            </a>
-                            <a
-                              onClick={(e) => {
-                                if (confirm("Are you sure ?"))
-                                  handleDelete(u.id);
-                              }}
-                              href="#"
-                              className="text-danger btn shadow-sm"
-                            >
-                              <i className="fas fa-trash"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
+                          );
+                        })}
+                      </td>
+                      <td>
+                        <div>
+                          <a
+                            data-bs-toggle="modal"
+                            data-bs-target={"#modal-edit-" + u.id}
+                            className="mx-2 btn shadow-sm"
+                          >
+                            <i className="fas fa-edit"></i>
+                          </a>
+                          <a
+                            onClick={(e) => {
+                              if (confirm("Are you sure ?")) handleDelete(u.id);
+                            }}
+                            href="#"
+                            className="text-danger btn shadow-sm"
+                          >
+                            <i className="fas fa-trash"></i>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
                   );
                 })
               ) : (
@@ -255,7 +247,7 @@ export default function IndexUser(props) {
                   onClick={() => handlePage(page - 1)}
                 >
                   <span aria-hidden="true">
-                    <i class="fas fa-chevron-left"></i>
+                    <i className="fas fa-chevron-left"></i>
                   </span>
                 </button>
               </li>
@@ -274,7 +266,7 @@ export default function IndexUser(props) {
                   onClick={() => handlePage(page + 1)}
                 >
                   <span aria-hidden="true">
-                    <i class="fas fa-chevron-right"></i>
+                    <i className="fas fa-chevron-right"></i>
                   </span>
                 </button>
               </li>

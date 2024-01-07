@@ -24,6 +24,7 @@ export default function Login(props) {
       })
       .then(async (res) => {
         let token = btoa(`${data.username}:${data.password}`);
+      
         localStorage.setItem("token", token);
         toast.success("Welcome , " + data.username, {
           position: "top-right",
@@ -52,7 +53,7 @@ export default function Login(props) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Invalid Credentials!", {
+        toast.error(JSON.stringify(err), {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

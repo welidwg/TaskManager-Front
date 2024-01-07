@@ -54,12 +54,14 @@ export default function SideBar(props) {
               </li>
             </>
           )}
-          <li className="nav-item">
-            <NavLink to={"/mytasks"} className="nav-link">
-              <i className="far fa-user-circle"></i>
-              <span>My tasks</span>
-            </NavLink>
-          </li>
+          {!isAdmin && (
+            <li className="nav-item">
+              <NavLink to={"/mytasks"} className="nav-link">
+                <i className="far fa-user-circle"></i>
+                <span>My tasks</span>
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

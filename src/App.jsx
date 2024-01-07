@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import Home from "./pages/home";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import { AUTH_TOKEN, AUTH_USER } from "./constants/constants";
+import { AUTH_TOKEN, AUTH_USER, Headers } from "./constants/constants";
 import NotFound from "./pages/errors/NotFound";
 import IndexTask from "./pages/tasks/Index";
 import IndexUser from "./pages/users/IndexUser";
@@ -13,11 +11,20 @@ import UserTaskIndex from "./pages/tasks/user/UserTaskIndex";
 import IndexStatus from "./pages/status/IndexStatus";
 import Pusher from "pusher-js";
 import { ToastContainer, toast } from "react-toastify";
+import Profile from "./pages/users/Profile";
+import axios from "axios";
+import { URL } from "./constants/url";
 function App() {
   const [count, setCount] = useState(0);
   const roles = AUTH_USER && AUTH_USER.roles;
-
+  const [currentUser, setCurrentUser] = useState(null);
+  const [sync, setSync] = useState(false);
+  const handleSync = (state) => {
+    setSync(state);
+  };
   useEffect(() => {
+    var audio = new Audio("/assets/notif.wav");
+    setSync(false);
     const pusher = new Pusher("33ae8c9470ab8fad0744", {
       cluster: "eu",
       encrypted: true,
@@ -25,11 +32,8 @@ function App() {
 
     if (roles && roles.some((r) => r.role == "ADMIN")) {
       let cAdmin = pusher.subscribe("notif-admin");
-      cAdmin.bind("notif-event", (data) => {
-        console.log("====================================");
-        console.log(data);
-        console.log("====================================");
-        toast.success(data, {
+      cAdmin.bind("notif-event-admin", (data) => {
+        toast.info(data, {
           position: "top-right",
           autoClose: false,
           hideProgressBar: true,
@@ -37,18 +41,16 @@ function App() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
         });
+        setSync(true);
+        audio.play();
       });
     }
 
     if (AUTH_USER) {
       let userChannel = pusher.subscribe(`notif-${AUTH_USER.id}`);
       userChannel.bind("notif-event", (data) => {
-        console.log("====================================");
-        console.log(data);
-        console.log("====================================");
-        toast.success(data, {
+        toast.info(data, {
           position: "top-right",
           autoClose: false,
           hideProgressBar: true,
@@ -56,35 +58,25 @@ function App() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
         });
+        setSync(true);
+        audio.play();
       });
+      axios
+        .get(URL + "/account/" + AUTH_USER.username, Headers)
+        .then((res) => setCurrentUser(res.data))
+        .catch((err) => console.log(err));
     }
-    // let channel = pusher.subscribe("notif");
-    // channel.bind("notif-event", (data) => {
-    //   console.log("====================================");
-    //   console.log(data);
-    //   console.log("====================================");
-    //   toast(data, {
-    //     position: "top-right",
-    //     autoClose: false,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    // });
+
     return () => {
-      // channel.unbind("notif-event");
       pusher.unsubscribe("notif");
       pusher.unsubscribe("notif-admin");
       if (AUTH_USER) {
         pusher.unsubscribe(`notif-${AUTH_USER.id}`);
       }
     };
-  }, []);
+  }, [sync]);
+
   return (
     <>
       <ToastContainer />
@@ -95,16 +87,23 @@ function App() {
         {AUTH_TOKEN && (
           <>
             <Route path="/home" element={<Home />} />
+            <Route
+              path="/profile"
+              element={
+                <Profile sync={sync} onUpdate={handleSync} user={currentUser} />
+              }
+            />
 
             {roles.some((r) => r.role === "ADMIN") && (
               <>
-                <Route path="/task" element={<IndexTask />} />
+                <Route path="/task" element={<IndexTask sync={sync} />} />
                 <Route path="/users" element={<IndexUser />} />
                 <Route path="/status" element={<IndexStatus />} />
               </>
             )}
-
-            <Route path="/mytasks" element={<UserTaskIndex />} />
+            {!roles.some((r) => r.role === "ADMIN") && (
+              <Route path="/mytasks" element={<UserTaskIndex sync={sync} />} />
+            )}
           </>
         )}
         <Route path="*" element={<NotFound />} />

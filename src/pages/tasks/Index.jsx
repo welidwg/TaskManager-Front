@@ -15,7 +15,6 @@ export default function IndexTask(props) {
   const [newTask, setNewTask] = useState({ title: "", description: "" });
   const [show, setShow] = useState(false);
   const [updateView, setUpdateView] = useState(false);
-  const [erros, setErrors] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [mc, setMc] = useState("");
@@ -38,7 +37,7 @@ export default function IndexTask(props) {
   useEffect(() => {
     fetchData();
     setUpdateView(false);
-  }, [updateView, mc, page]);
+  }, [updateView, mc, page, props.sync]);
   const handlePage = (p) => {
     setPage(p);
   };
@@ -213,7 +212,7 @@ export default function IndexTask(props) {
   return (
     <Wrapper>
       {/* <h3 className="text-dark mb-1">Tasks list</h3> */}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
 
       <CardWrapper title="tasks">
         <aside className="d-flex align-items-center justify-content-between w-100">
@@ -245,12 +244,7 @@ export default function IndexTask(props) {
             </div>
           </form>
         </aside>
-        <div
-          className="table-responsive table mt-2"
-          id="dataTable"
-          role="grid"
-          aria-describedby="dataTable_info"
-        >
+        <div className="table-responsive table mt-2" id="dataTable" role="grid">
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Add new Task</Modal.Title>
@@ -272,7 +266,6 @@ export default function IndexTask(props) {
                     }}
                     className="form-control"
                   />
-                  <div className="valid-feedback">Looks good!</div>
                 </div>
                 <div className="col">
                   <label htmlFor="validationCustom01" className="form-label">
@@ -311,11 +304,9 @@ export default function IndexTask(props) {
             </thead>
             <tbody>
               {tasks.length == 0 ? (
-                <>
-                  <tr>
-                    <td>No data</td>
-                  </tr>
-                </>
+                <tr>
+                  <td>No data</td>
+                </tr>
               ) : (
                 tasks &&
                 tasks.map((task, index) => {
@@ -409,7 +400,7 @@ export default function IndexTask(props) {
                   onClick={() => handlePage(page - 1)}
                 >
                   <span aria-hidden="true">
-                    <i class="fas fa-chevron-left"></i>
+                    <i className="fas fa-chevron-left"></i>
                   </span>
                 </button>
               </li>
@@ -427,7 +418,7 @@ export default function IndexTask(props) {
                   onClick={() => handlePage(page + 1)}
                 >
                   <span aria-hidden="true">
-                    <i class="fas fa-chevron-right"></i>
+                    <i className="fas fa-chevron-right"></i>
                   </span>
                 </button>
               </li>

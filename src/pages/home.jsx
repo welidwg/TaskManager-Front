@@ -5,17 +5,6 @@ import Wrapper from "../Layouts/Wrapper";
 import { Headers } from "../constants/constants";
 
 export default function Home(props) {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`${URL}/account/getAll`, Headers)
-      .then((res) => {
-        setProducts(res.data);
-      })
-      .then((err) => {
-        console.log(err);
-      });
-  }, []);
   return (
     <Wrapper>
       <h3 className="text-dark mb-1">Dashboard</h3>
