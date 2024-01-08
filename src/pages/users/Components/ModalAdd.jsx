@@ -13,6 +13,7 @@ export default function ModalAdd(props) {
     email: "",
     roles: [{ role: "USER" }],
   });
+  const [category, setCategory] = useState([]);
   const [avatar, setAvatar] = useState(null);
   const [rolesData, setRoles] = useState([]);
 
@@ -177,6 +178,7 @@ export default function ModalAdd(props) {
         <div className="col">
           <label className="form-label">Roles</label>
           <div className="d-flex justify-content-start">
+           
             {rolesData.length != 0 &&
               rolesData.map((role, index) => {
                 return (

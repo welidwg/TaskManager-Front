@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Wrapper from "../../Layouts/Wrapper";
 import axios from "axios";
-import { URL } from "../../constants/url";
+import { URL, URL_ADMIN } from "../../constants/url";
 import CardWrapper from "../../Layouts/Card";
 import { Headers } from "../../constants/constants";
 import ModalAddStatus from "./Components/ModalAddStatus";
@@ -15,7 +15,7 @@ export default function IndexStatus(props) {
   };
   const handleDelete = async (id) => {
     await axios
-      .delete(`${URL}/status/${id}/delete`, Headers)
+      .delete(`${URL_ADMIN}/status/${id}/delete`, Headers)
       .then((res) => setUpdateView(true))
       .catch((err) =>
         toast.error("Server error", {
@@ -33,12 +33,12 @@ export default function IndexStatus(props) {
   useEffect(() => {
     setUpdateView(false);
     axios
-      .get(`${URL}/status/getAll`, Headers)
+      .get(`${URL_ADMIN}/status/getAll`, Headers)
       .then((res) => setStatus(res.data))
       .catch((err) => console.log(err));
   }, [updateView]);
   return (
-    <Wrapper>
+    <>
       <ToastContainer />
 
       <ModalAddStatus
@@ -138,6 +138,6 @@ export default function IndexStatus(props) {
           </table>
         </div>
       </CardWrapper>
-    </Wrapper>
+    </>
   );
 }

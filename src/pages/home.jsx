@@ -6,8 +6,8 @@ import { Headers } from "../constants/constants";
 
 export default function Home(props) {
   return (
-    <Wrapper>
+    <>
       <h3 className="text-dark mb-1">Dashboard</h3>
-    </Wrapper>
+    </>
   );
 }

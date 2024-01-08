@@ -11,7 +11,7 @@ export default function NavBar(props) {
       .get(URL + "/account/" + AUTH_USER.username, Headers)
       .then((res) => setCurrentUser(res.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [props.sync]);
   return (
     <>
       <nav className="navbar navbar-expand bg-white shadow mb-4 topbar static-top navbar-light">

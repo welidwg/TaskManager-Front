@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Profile from "./pages/users/Profile";
 import axios from "axios";
 import { URL } from "./constants/url";
+import Wrapper from "./Layouts/Wrapper";
 function App() {
   const [count, setCount] = useState(0);
   const roles = AUTH_USER && AUTH_USER.roles;
@@ -78,7 +79,7 @@ function App() {
   }, [sync]);
 
   return (
-    <>
+    <Wrapper sync={sync}>
       <ToastContainer />
       <Routes>
         <Route path="/" element={AUTH_TOKEN ? <Home /> : <Login />} />
@@ -108,7 +109,7 @@ function App() {
         )}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </Wrapper>
   );
 }
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CardWrapper from "../../Layouts/Card";
 import Wrapper from "../../Layouts/Wrapper";
 import axios from "axios";
-import { URL } from "../../constants/url";
+import { URL, URL_ADMIN } from "../../constants/url";
 import { AUTH_TOKEN, Headers } from "../../constants/constants";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -25,7 +25,7 @@ export default function IndexTask(props) {
   };
   const fetchData = () => {
     axios
-      .get(`${URL}/task/getAll?mc=${mc}&page=${page - 1}`, Headers)
+      .get(`${URL_ADMIN}/task/getAll?mc=${mc}&page=${page - 1}`, Headers)
       .then((res) => {
         setTask(res.data.content);
         setPageable(res.data);
@@ -129,7 +129,7 @@ export default function IndexTask(props) {
     e.preventDefault();
 
     await axios
-      .post(`${URL}/task/add`, newTask, {
+      .post(`${URL_ADMIN}/task/add`, newTask, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${AUTH_TOKEN}`,
@@ -179,7 +179,7 @@ export default function IndexTask(props) {
   };
   const handleDelete = async (id) => {
     axios
-      .delete(`${URL}/task/delete/${id}`, Headers)
+      .delete(`${URL_ADMIN}/task/delete/${id}`, Headers)
       .then((res) => {
         setUpdateView(true);
         console.log(res);
@@ -210,7 +210,7 @@ export default function IndexTask(props) {
       });
   };
   return (
-    <Wrapper>
+    <>
       {/* <h3 className="text-dark mb-1">Tasks list</h3> */}
       {/* <ToastContainer /> */}
 
@@ -426,6 +426,6 @@ export default function IndexTask(props) {
           </nav>
         </div>
       </CardWrapper>
-    </Wrapper>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ModalWrapper from "../../../Layouts/Modal";
 import axios from "axios";
-import { URL } from "../../../constants/url";
+import { URL, URL_ADMIN } from "../../../constants/url";
 import { Headers } from "../../../constants/constants";
 import { toast } from "react-toastify";
 
@@ -44,7 +44,7 @@ export default function ModalAssign(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${URL}/task/assign`, assignment, Headers)
+      .post(`${URL_ADMIN}/task/assign`, assignment, Headers)
       .then((res) => {
         toast.success("Successfully assigned", {
           position: "top-right",
@@ -86,7 +86,7 @@ export default function ModalAssign(props) {
       })
       .catch((err) => console.log(err));
     axios
-      .get(`${URL}/status/getAll`, Headers)
+      .get(`${URL_ADMIN}/status/getAll`, Headers)
       .then((res) => {
         setStatuses(res.data);
       })

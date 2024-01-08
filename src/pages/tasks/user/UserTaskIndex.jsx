@@ -4,7 +4,7 @@ import CardWrapper from "../../../Layouts/Card";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { AUTH_USER, Headers } from "../../../constants/constants";
-import { URL } from "../../../constants/url";
+import { URL, URL_USER } from "../../../constants/url";
 import moment from "moment/moment";
 
 export default function UserTaskIndex(props) {
@@ -34,7 +34,7 @@ export default function UserTaskIndex(props) {
   useEffect(() => {
     setUpdateView(false);
     axios
-      .get(`${URL}/assignment/user/${user.id}`, Headers)
+      .get(`${URL_USER}/assignment/user/${user.id}`, Headers)
       .then((res) => setAssignments(res.data))
       .catch((err) => console.log(err));
   }, [updateView, props.sync]);
@@ -42,7 +42,7 @@ export default function UserTaskIndex(props) {
   const handleStatusUpdate = async (id_assignment, id_status) => {
     console.log(id_assignment + " test");
     await axios
-      .put(`${URL}/task/${id_assignment}/status`, { id: id_status }, Headers)
+      .put(`${URL_USER}/task/${id_assignment}/status`, { id: id_status }, Headers)
       .then((res) => {
         console.log(res);
         setUpdateView(true);
@@ -53,7 +53,7 @@ export default function UserTaskIndex(props) {
     console.log(newStatus);
   }, [newStatus]);
   return (
-    <Wrapper>
+    <>
       <ToastContainer />
       <CardWrapper title="My tasks">
         <div
@@ -191,6 +191,6 @@ export default function UserTaskIndex(props) {
           </table>
         </div>
       </CardWrapper>
-    </Wrapper>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ModalWrapper from "../../../Layouts/Modal";
 import axios from "axios";
-import { URL } from "../../../constants/url";
+import { URL, URL_ADMIN } from "../../../constants/url";
 import { Headers } from "../../../constants/constants";
 import { toast } from "react-toastify";
 
@@ -22,7 +22,7 @@ export default function ModalAddStatus(props) {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     await axios
-      .post(`${URL}/status/add`, status, Headers)
+      .post(`${URL_ADMIN}/status/add`, status, Headers)
       .then((res) => {
         toast.success("Successfully added", {
           position: "top-right",

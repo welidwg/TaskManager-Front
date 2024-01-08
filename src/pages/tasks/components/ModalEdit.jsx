@@ -3,7 +3,7 @@ import ModalWrapper from "../../../Layouts/Modal";
 import { AUTH_TOKEN } from "../../../constants/constants";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { URL } from "../../../constants/url";
+import { URL, URL_ADMIN } from "../../../constants/url";
 export default function ModalEdit(props) {
   const [tsk, setTask] = useState(props.task);
   function handleInputChange(e) {
@@ -16,7 +16,7 @@ export default function ModalEdit(props) {
     e.preventDefault();
 
     await axios
-      .post(`${URL}/task/edit`, tsk, {
+      .post(`${URL_ADMIN}/task/edit`, tsk, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${AUTH_TOKEN}`,

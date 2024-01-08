@@ -116,7 +116,7 @@ export default function IndexUser(props) {
   };
 
   return (
-    <Wrapper>
+    <>
       <ToastContainer />
       <ModalAdd
         title="Add user"
@@ -274,6 +274,6 @@ export default function IndexUser(props) {
           </nav>
         </div>
       </CardWrapper>
-    </Wrapper>
+    </>
   );
 }

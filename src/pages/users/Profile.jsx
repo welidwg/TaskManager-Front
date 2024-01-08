@@ -5,7 +5,7 @@ import FormEditUser from "./Components/FormEditUser";
 
 export default function Profile(props) {
   return (
-    <Wrapper>
+    <>
       <div className="row mb-3">
         <div className="col-lg-4">
           <div className="card mb-3">
@@ -42,6 +42,6 @@ export default function Profile(props) {
           </div>
         </div>
       </div>
-    </Wrapper>
+    </>
   );
 }

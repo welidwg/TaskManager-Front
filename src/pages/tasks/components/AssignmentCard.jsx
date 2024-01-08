@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../../../constants/url";
+import { URL, URL_ADMIN } from "../../../constants/url";
 import { Headers } from "../../../constants/constants";
 import { toast } from "react-toastify";
 import moment from "moment";
@@ -7,7 +7,7 @@ import moment from "moment";
 export default function AssignmentCard({ assignment, onUpdate, modalId }) {
   const handleDelete = async (id) => {
     axios
-      .delete(`${URL}/assignment/${id}/delete`, Headers)
+      .delete(`${URL_ADMIN}/assignment/${id}/delete`, Headers)
       .then((res) => {
         toast.success("Successfully unassigned", {
           position: "top-right",
