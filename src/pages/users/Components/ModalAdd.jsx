@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ModalWrapper from "../../../Layouts/Modal";
 import axios from "axios";
-import { URL } from "../../../constants/url";
+import { URL, URL_ADMIN } from "../../../constants/url";
 import { AUTH_TOKEN, Headers } from "../../../constants/constants";
 import { toast } from "react-toastify";
 
@@ -57,7 +57,7 @@ export default function ModalAdd(props) {
 
     formData.append("photo", avatar);
     await axios
-      .post(`${URL}/addUser`, formData, {
+      .post(`${URL_ADMIN}/addUser`, formData, {
         headers: {
           Authorization: `Basic ${AUTH_TOKEN}`,
         },
@@ -118,7 +118,7 @@ export default function ModalAdd(props) {
   };
   useEffect(() => {
     axios
-      .get(`${URL}/roles/getAll`, Headers)
+      .get(`${URL_ADMIN}/roles/getAll`, Headers)
       .then((res) => {
         setRoles(res.data);
       })
@@ -178,7 +178,6 @@ export default function ModalAdd(props) {
         <div className="col">
           <label className="form-label">Roles</label>
           <div className="d-flex justify-content-start">
-           
             {rolesData.length != 0 &&
               rolesData.map((role, index) => {
                 return (

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import ModalWrapper from "../../../Layouts/Modal";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { URL } from "../../../constants/url";
 import { AUTH_TOKEN, Headers } from "../../../constants/constants";

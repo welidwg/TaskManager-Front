@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { URL } from "../constants/url";
+import { URL, URL_USER } from "../constants/url";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Headers } from "../constants/constants";
@@ -38,13 +38,17 @@ export default function Login(props) {
         });
 
         await axios
-          .get(`${URL}/account/${data.username}`, {
+          .get(`${URL_USER}/account/${data.username}`, {
             headers: { Authorization: `Basic ${token}` },
           })
           .then((r) => {
             localStorage.setItem("user", JSON.stringify(r.data));
             setTimeout(() => {
-              window.location.href = "/home";
+              if (r.data.roles.some((r) => r.role == "ADMIN")) {
+                window.location.href = "/task";
+              } else {
+                window.location.href = "/mytasks";
+              }
             }, 700);
           })
           .catch((er) => {

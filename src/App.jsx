@@ -13,7 +13,7 @@ import Pusher from "pusher-js";
 import { ToastContainer, toast } from "react-toastify";
 import Profile from "./pages/users/Profile";
 import axios from "axios";
-import { URL } from "./constants/url";
+import { URL, URL_USER } from "./constants/url";
 import Wrapper from "./Layouts/Wrapper";
 function App() {
   const [count, setCount] = useState(0);
@@ -64,7 +64,7 @@ function App() {
         audio.play();
       });
       axios
-        .get(URL + "/account/" + AUTH_USER.username, Headers)
+        .get(URL_USER + "/account/" + AUTH_USER.username, Headers)
         .then((res) => setCurrentUser(res.data))
         .catch((err) => console.log(err));
     }

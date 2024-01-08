@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { AUTH_USER, Headers } from "../constants/constants";
-import { URL } from "../constants/url";
+import { URL, URL_USER } from "../constants/url";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ export default function NavBar(props) {
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     axios
-      .get(URL + "/account/" + AUTH_USER.username, Headers)
+      .get(URL_USER + "/account/" + AUTH_USER.username, Headers)
       .then((res) => setCurrentUser(res.data))
       .catch((err) => console.log(err));
   }, [props.sync]);

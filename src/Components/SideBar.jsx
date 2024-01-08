@@ -26,12 +26,12 @@ export default function SideBar(props) {
         </a>
         <hr className="sidebar-divider my-0" />
         <ul className="navbar-nav text-light" id="accordionSidebar">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <NavLink to={"/"} className="nav-link">
               <i className="fas fa-user"></i>
               <span>Dashboard</span>
             </NavLink>
-          </li>
+          </li> */}
           {isAdmin && (
             <>
               <li className="nav-item">

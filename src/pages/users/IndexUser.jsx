@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { URL } from "../../constants/url";
-import { Headers } from "../../constants/constants";
+import { URL, URL_ADMIN } from "../../constants/url";
+import { AUTH_USER, Headers } from "../../constants/constants";
 import { ToastContainer, toast } from "react-toastify";
 import Wrapper from "../../Layouts/Wrapper";
 import CardWrapper from "../../Layouts/Card";
@@ -17,7 +17,7 @@ export default function IndexUser(props) {
 
   const fetchData = () => {
     axios
-      .get(`${URL}/account/getAll?mc=${mc}&page=${page - 1}`, Headers)
+      .get(`${URL_ADMIN}/account/getAll?mc=${mc}&page=${page - 1}`, Headers)
       .then((res) => {
         setUsers(res.data.content);
         setPageable(res.data);
@@ -81,7 +81,7 @@ export default function IndexUser(props) {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`${URL}/account/${id}/delete`, Headers)
+      .delete(`${URL_ADMIN}/account/${id}/delete`, Headers)
       .then((res) => {
         toast.success("Successfully deleted.", {
           position: "top-right",
@@ -209,24 +209,27 @@ export default function IndexUser(props) {
                         })}
                       </td>
                       <td>
-                        <div>
-                          <a
-                            data-bs-toggle="modal"
-                            data-bs-target={"#modal-edit-" + u.id}
-                            className="mx-2 btn shadow-sm"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            onClick={(e) => {
-                              if (confirm("Are you sure ?")) handleDelete(u.id);
-                            }}
-                            href="#"
-                            className="text-danger btn shadow-sm"
-                          >
-                            <i className="fas fa-trash"></i>
-                          </a>
-                        </div>
+                        {u.id != AUTH_USER.id && (
+                          <div>
+                            <a
+                              data-bs-toggle="modal"
+                              data-bs-target={"#modal-edit-" + u.id}
+                              className="mx-2 btn shadow-sm"
+                            >
+                              <i className="fas fa-edit"></i>
+                            </a>
+                            <a
+                              onClick={(e) => {
+                                if (confirm("Are you sure ?"))
+                                  handleDelete(u.id);
+                              }}
+                              href="#"
+                              className="text-danger btn shadow-sm"
+                            >
+                              <i className="fas fa-trash"></i>
+                            </a>
+                          </div>
+                        )}
                       </td>
                     </tr>
                   );

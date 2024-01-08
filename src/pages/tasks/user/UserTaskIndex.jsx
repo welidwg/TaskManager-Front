@@ -42,16 +42,18 @@ export default function UserTaskIndex(props) {
   const handleStatusUpdate = async (id_assignment, id_status) => {
     console.log(id_assignment + " test");
     await axios
-      .put(`${URL_USER}/task/${id_assignment}/status`, { id: id_status }, Headers)
+      .put(
+        `${URL_USER}/task/${id_assignment}/status`,
+        { id: id_status },
+        Headers
+      )
       .then((res) => {
         console.log(res);
         setUpdateView(true);
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    console.log(newStatus);
-  }, [newStatus]);
+
   return (
     <>
       <ToastContainer />
@@ -78,7 +80,11 @@ export default function UserTaskIndex(props) {
               {assignments.length == 0 ? (
                 <>
                   <tr>
-                    <td>No data</td>
+                    <td>
+                      <span className="badge badge-warning">
+                        You have no tasks assigned to you yet !
+                      </span>{" "}
+                    </td>
                   </tr>
                 </>
               ) : (

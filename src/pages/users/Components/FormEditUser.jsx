@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { URL } from "../../../constants/url";
+import { URL, URL_ADMIN, URL_USER } from "../../../constants/url";
 import { AUTH_TOKEN, AUTH_USER, Headers } from "../../../constants/constants";
 
 export default function FormEditUser(props) {
@@ -62,7 +62,7 @@ export default function FormEditUser(props) {
 
     formData.append("photo", avatar);
     await axios
-      .put(`${URL}/account/edit`, formData, {
+      .put(`${URL_USER}/account/edit`, formData, {
         headers: {
           Authorization: `Basic ${AUTH_TOKEN}`,
         },
@@ -79,8 +79,14 @@ export default function FormEditUser(props) {
           theme: "light",
         });
         $(`#${props.id}`).modal("hide");
-        localStorage.setItem("user", JSON.stringify(res.data));
 
+        if (AUTH_USER.id == res.data.id) {
+          if (u.password !== props.user.password) {
+            let token = btoa(`${res.data.username}:${u.password}`);
+            localStorage.setItem("token", token);
+          }
+          localStorage.setItem("user", JSON.stringify(res.data));
+        }
         handleUpdate(true);
       })
       .catch((err) => {
@@ -104,7 +110,7 @@ export default function FormEditUser(props) {
   };
   useEffect(() => {
     axios
-      .get(`${URL}/roles/getAll`, Headers)
+      .get(`${URL_ADMIN}/roles/getAll`, Headers)
       .then((res) => {
         setRoles(res.data);
       })
@@ -143,18 +149,20 @@ export default function FormEditUser(props) {
             }}
           />
         </div>
-        <div className="col">
-          <label className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            onChange={(e) => {
-              handleInputChange(e);
-            }}
-            disabled={props.user != null && currentUser.id === props.user.id}
-          />
-        </div>
+        {props.user != null && !(currentUser.id === props.user.id) && (
+          <div className="col">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
+              // disabled={props.user != null && currentUser.id === props.user.id}
+            />
+          </div>
+        )}
         <div className="col">
           <label className="form-label">Avatar</label>
           <input

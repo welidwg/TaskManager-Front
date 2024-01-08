@@ -80,7 +80,7 @@ export default function ModalAssign(props) {
   };
   useEffect(() => {
     axios
-      .get(`${URL}/account/all`, Headers)
+      .get(`${URL_ADMIN}/account/all`, Headers)
       .then((res) => {
         setUsers(res.data);
       })
