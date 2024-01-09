@@ -35,7 +35,6 @@ export default function ModalAdd(props) {
     } else {
       setUserData({ ...userData, [e.target.name]: e.target.value });
     }
-    console.log(userData.roles);
   }
 
   const handleUpdate = (state) => {
@@ -54,7 +53,6 @@ export default function ModalAdd(props) {
       "data",
       new Blob([JSON.stringify(userData)], { type: "application/json" })
     );
-
     formData.append("photo", avatar);
     await axios
       .post(`${URL_ADMIN}/addUser`, formData, {

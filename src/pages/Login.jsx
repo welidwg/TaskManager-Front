@@ -24,7 +24,6 @@ export default function Login(props) {
       })
       .then(async (res) => {
         let token = btoa(`${data.username}:${data.password}`);
-
         localStorage.setItem("token", token);
         toast.success("Welcome , " + data.username, {
           position: "top-right",

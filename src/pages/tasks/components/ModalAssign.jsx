@@ -16,9 +16,19 @@ export default function ModalAssign(props) {
     user: { id: null },
     dueDate: null,
     assignemntDate: currentDate,
-    status: { id: null },
+    status: {
+      id: null,
+    },
   });
-
+  useEffect(() => {
+    const waitingStatus = statuses.find((status) => status.label === "Waiting");
+    const id = waitingStatus ? waitingStatus.id : "";
+    console.log("Waiting label:", id);
+    if (id != null) {
+      setAssignment({ ...assignment, status: { id: id } });
+    }
+    console.log(assignment);
+  }, [statuses]);
   //functions
   const handleUpdateView = (state) => {
     props.onUpdate(state);
@@ -109,7 +119,6 @@ export default function ModalAssign(props) {
                 name="users"
                 onChange={(e) => handleChange(e)}
               >
-                <option value={""}>Users list</option>
                 {users.length != null &&
                   users.map((user, index) => {
                     if (!user.roles.some((t) => t.role === "ADMIN")) {
@@ -137,14 +146,20 @@ export default function ModalAssign(props) {
               <label className="form-label fw-bold">Choose status : </label>
 
               <select
-                className="form-select form-select-lg"
+                className="form-select form-select-lg "
                 name="statuses"
+                disabled
                 onChange={(e) => handleChange(e)}
+                defaultValue={statuses.length != 0 && statuses[0].id}
               >
                 {statuses.length != null &&
                   statuses.map((status, index) => {
                     return (
-                      <option key={index} value={status.id}>
+                      <option
+                        selected={status.label == "Waiting"}
+                        key={index}
+                        value={status.id}
+                      >
                         {status.label}
                       </option>
                     );
