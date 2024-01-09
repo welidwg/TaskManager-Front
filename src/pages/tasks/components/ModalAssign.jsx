@@ -23,11 +23,9 @@ export default function ModalAssign(props) {
   useEffect(() => {
     const waitingStatus = statuses.find((status) => status.label === "Waiting");
     const id = waitingStatus ? waitingStatus.id : "";
-    console.log("Waiting label:", id);
     if (id != null) {
-      setAssignment({ ...assignment, status: { id: id } });
+      setAssignment({...assignment, status: { id: id } });
     }
-    console.log(assignment);
   }, [statuses]);
   //functions
   const handleUpdateView = (state) => {

@@ -96,27 +96,9 @@ export default function IndexTask(props) {
       </>
     ));
   };
-  // const generateModalAssign = () => {
-  //   if (!tasks || tasks.length === 0) {
-  //     // Handle the case when users is null, undefined, or an empty array
-  //     return <p>No tasks availlable</p>;
-  //   }
+ 
 
-  //   return tasks.map((task) => (
 
-  //   ));
-  // };
-
-  // const generateModalDetailAssign = () => {
-  //   if (!tasks || tasks.length === 0) {
-  //     // Handle the case when users is null, undefined, or an empty array
-  //     return <p>No tasks available</p>;
-  //   }
-
-  //   return tasks.map((task) => (
-
-  //   ));
-  // };
   const handleUpdate = (state) => {
     setUpdateView(state);
   };
@@ -211,8 +193,7 @@ export default function IndexTask(props) {
   };
   return (
     <>
-      {/* <h3 className="text-dark mb-1">Tasks list</h3> */}
-      {/* <ToastContainer /> */}
+ 
 
       <CardWrapper title="tasks">
         <aside className="d-flex align-items-center justify-content-between w-100">

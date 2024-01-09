@@ -7,6 +7,7 @@ import CardWrapper from "../../Layouts/Card";
 import axios from "axios";
 import ModalAdd from "./Components/ModalAdd";
 import ModalEditUser from "./Components/ModalEditUser";
+import ModalDetails from "./Components/ModalDetails";
 
 export default function IndexUser(props) {
   const [users, setUsers] = useState([]);
@@ -69,13 +70,20 @@ export default function IndexUser(props) {
     }
 
     return users.map((u) => (
-      <ModalEditUser
-        key={u.id} // Don't forget to add a unique key when using map
-        onUpdate={handleUpdateView}
-        user={u}
-        title={`Edit user '${u.username}'`}
-        id={`modal-edit-${u.id}`}
-      />
+      <>
+        <ModalEditUser
+          key={u.id} // Don't forget to add a unique key when using map
+          onUpdate={handleUpdateView}
+          user={u}
+          title={`Edit user '${u.username}'`}
+          id={`modal-edit-${u.id}`}
+        />
+        <ModalDetails
+          key={u.id + 9999}
+          user={u}
+          id={`modal-user-details-${u.id}`}
+        />
+      </>
     ));
   };
 
@@ -191,9 +199,13 @@ export default function IndexUser(props) {
                                 : `${URL}/photos/${u.avatar}`
                             }
                           />
-                          <span className="badge badge-primary">
+                          <a
+                            data-bs-toggle="modal"
+                            data-bs-target={`#modal-user-details-${u.id}`}
+                            className="badge badge-primary"
+                          >
                             {u.username}
-                          </span>
+                          </a>
                         </div>
                       </td>
                       <td>
